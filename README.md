@@ -7,3 +7,7 @@ An example on how to run the method is given below:
 ```
 python main.py input_document.png input_mask.png -a 0.1 -t 0.1
 ```
+
+### Online demo
+
+You can try the method online in the following <a href="https://ipolcore.ipol.im/demo/clientApp/demo.html?id=77777000542">IPOL demo</a>.
