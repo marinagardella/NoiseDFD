@@ -6,7 +6,6 @@ from scipy import ndimage
 from pathlib import Path
 import cv2
 import os
-import stat
 from imutils.object_detection import non_max_suppression
 import argparse
 
@@ -80,7 +79,6 @@ def detect_text(image, east_model_path, min_confidence=0.1):
     """
     Text detection using the EAST model.
     """
-    os.chmod(east_model_path, stat.S_IREAD)
     if len(image.shape) == 2 or image.shape[2] == 1:
         image = cv2.cvtColor(image, cv2.COLOR_GRAY2BGR)
     orig_h, orig_w = image.shape[:2]
