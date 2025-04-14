@@ -6,7 +6,7 @@ To run the method, simply provide the path to the input document image. The scri
 
 - `characters.png`: Visualization of the extracted characters (connected components).
 - `stds.png`: Shows each detected character with a value representing its standard deviation.
-- `outliers.png`: Highlights characters whose standard deviations fall outside the fluctuation interval defined by significance level `α`.
+- `outliers.png`: Highlights characters whose standard deviations fall outside the fluctuation interval defined by significance level `a`.
 - `words.png`: Displays the words extracted using the EAST text detector.
 - `nfa.png`: Final word-level detection based on a Number of False Alarms (NFA) threshold `t`.
 
