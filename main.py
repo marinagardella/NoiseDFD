@@ -10,6 +10,8 @@ import stat
 from imutils.object_detection import non_max_suppression
 import argparse
 
+ROOT = os.path.dirname(os.path.realpath(__file__))
+
 def load_image(img_path):
     """
     Loads grayscale image from a given path
@@ -152,7 +154,8 @@ def detect(img_path, alpha, threshold):
     chars = (labeled_objects > 0)
     stds, stds_img = compute_std_per_label(img, labeled_objects, labels)
     outliers = compute_outliers_mask(labeled_objects, labels, stds, alpha)
-    text_mask = detect_text(img, './frozen_east_text_detection.pb')
+    east_model_path = os.path.join( ROOT, 'frozen_east_text_detection.pb')
+    text_mask = detect_text(img, east_model_path)
     nfa = compute_NFA(outliers, chars, text_mask, threshold, alpha)
     cv2.imwrite('characters.png', chars * 255)
     cv2.imwrite('outliers.png', outliers)
