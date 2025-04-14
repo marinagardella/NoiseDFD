@@ -149,7 +149,7 @@ def detect(img_path, alpha, threshold):
     chars = (labeled_objects > 0)
     stds, stds_img = compute_std_per_label(img, labeled_objects, labels)
     outliers = compute_outliers_mask(labeled_objects, labels, stds, alpha)
-    text_mask = detect_text(img, 'frozen_east_text_detection.pb')
+    text_mask = detect_text(img, './frozen_east_text_detection.pb')
     nfa = compute_NFA(outliers, chars, text_mask, threshold, alpha)
     cv2.imwrite('characters.png', chars * 255)
     cv2.imwrite('outliers.png', outliers)
