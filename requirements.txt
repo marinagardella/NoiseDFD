@@ -2,5 +2,5 @@ imutils==0.5.4
 matplotlib==3.8.4
 numpy==1.26.4
 opencv_python==4.9.0.80
-scipy==1.13.1
-scikit-image==0.19.3
+scipy
+scikit-image
