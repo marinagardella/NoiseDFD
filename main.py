@@ -146,7 +146,7 @@ def compute_NFA(mask, chars, text_mask, threshold, alpha):
             NFADets[(word_mask & chars)>0] = 1
     return NFADets
 
-def detect(img_path, alpha, threshold):
+def detect(img_path, alpha, threshold, output_path):
     img = load_image(img_path)
     labeled_objects, labels = extract_components(img)
     chars = (labeled_objects > 0)
@@ -155,23 +155,31 @@ def detect(img_path, alpha, threshold):
     east_model_path = os.path.join( ROOT, 'frozen_east_text_detection.pb')
     text_mask = detect_text(img, east_model_path)
     nfa = compute_NFA(outliers, chars, text_mask, threshold, alpha)
-    cv2.imwrite('characters.png', chars * 255)
-    cv2.imwrite('outliers.png', outliers)
-    cv2.imwrite('words.png', text_mask)
-    cv2.imwrite('nfa.png', nfa * 255)
-    cv2.imwrite('stds.png', stds_img * 255)
+    sub_folder = os.path.splitext(os.path.basename(img_path))[-2]
+    if not os.path.exists(output_path + sub_folder):
+        os.makedirs(output_path + sub_folder)
+    cv2.imwrite(output_path + sub_folder + '/characters.png', chars * 255)
+    cv2.imwrite(output_path + sub_folder + '/outliers.png', outliers)
+    cv2.imwrite(output_path + sub_folder + '/words.png', text_mask)
+    cv2.imwrite(output_path + sub_folder + '/nfa.png', nfa * 255)
+    cv2.imwrite(output_path + sub_folder + '/stds.png', stds_img * 255)
 
 if __name__ == "__main__":
     parser = argparse.ArgumentParser()
-    parser.add_argument("image")
-    #parser.add_argument("mask")
+    parser.add_argument("dataset_path")
+    parser.add_argument("output_path")
     parser.add_argument("-a")
     parser.add_argument("-t")
     parser.parse_args()
     args = parser.parse_args()
-    img_path = args.image
+    path = args.dataset_path
+    output_path = args.output_path
+    if not os.path.exists(output_path):
+        os.makedirs(output_path)
     #mask_path = args.mask
     alpha = float(args.a)
     trheshold = float(args.t)
-    detect(img_path, alpha, trheshold)
+    for img in Path(path).glob('*.tif'):
+        print(f"Processing {img}")
+        detect(str(img), alpha, trheshold, output_path)
     #detect(img_path, mask_path, alpha, trheshold)
