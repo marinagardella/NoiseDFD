@@ -15,10 +15,11 @@ All output images are saved in the current working directory.
 
 An example on how to run the method is given below:
 ```
-python main.py input_document.png -a 0.1 -t 0.1
+python main.py input_document.png -b 10 -a 0.1 -t 0.1
 ```
 
 Where the arguments are:
+- `-b`:	Blobs removal threshold: connected components with area smaller than this value will be discarded.
 - `-a`:	Significance level used for detecting outliers based on standard deviation.
 - `-t`: NFA threshold used for final word-level detection.
 
