@@ -146,9 +146,9 @@ def compute_NFA(mask, chars, text_mask, threshold, alpha):
             NFADets[(word_mask & chars)>0] = 1
     return NFADets
 
-def detect(img_path, alpha, threshold):
+def detect(img_path, blob_thresh, alpha, threshold):
     img = load_image(img_path)
-    labeled_objects, labels = extract_components(img)
+    labeled_objects, labels = extract_components(img, blob_thresh)
     chars = (labeled_objects > 0)
     stds, stds_img = compute_std_per_label(img, labeled_objects, labels)
     outliers = compute_outliers_mask(labeled_objects, labels, stds, alpha)
@@ -164,14 +164,13 @@ def detect(img_path, alpha, threshold):
 if __name__ == "__main__":
     parser = argparse.ArgumentParser()
     parser.add_argument("image")
-    #parser.add_argument("mask")
     parser.add_argument("-a")
     parser.add_argument("-t")
+    parser.add_argument("-b")
     parser.parse_args()
     args = parser.parse_args()
     img_path = args.image
-    #mask_path = args.mask
     alpha = float(args.a)
     trheshold = float(args.t)
-    detect(img_path, alpha, trheshold)
-    #detect(img_path, mask_path, alpha, trheshold)
+    blob_thresh = float(args.b)
+    detect(img_path, blob_thresh, alpha, trheshold)
