@@ -1,3 +1,4 @@
 __pycache__/
 *.png
 *.tiff
+.DS_Store
