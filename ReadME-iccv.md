@@ -12,5 +12,8 @@ pip install -r requirements.txt
 ```bash
 python main-Noise.py 'path-to-fake-or-pristine-images' 'output-path' 'path-to-east-model'
 ```
-
+For the Chroma model run the following command:
+```bash
+python main-Chroma.py 'path-to-fake-or-pristine-images' 'output-path' 'path-to-east-model'
+```
 

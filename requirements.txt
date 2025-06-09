@@ -4,3 +4,4 @@ numpy==1.26.4
 opencv_python==4.9.0.80
 scipy
 scikit-image
+tqdm
